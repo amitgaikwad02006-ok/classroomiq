@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>ClassroomIQ | Smart Classroom Energy</title>
+<style>
+:root{--ink:#172033;--muted:#667085;--line:#dce3ed;--bg:#f5f7fb;--blue:#2458d3;--blue2:#eaf0ff;--green:#157347;--amber:#9a6700;--red:#b42318}
+*{box-sizing:border-box}body{margin:0;font-family:Inter,Segoe UI,Arial,sans-serif;background:var(--bg);color:var(--ink)}
+header{background:#fff;border-bottom:1px solid var(--line);padding:17px 26px;display:flex;align-items:center;justify-content:space-between;gap:12px;position:sticky;top:0;z-index:5}
+.brand{display:flex;align-items:center;gap:12px}.logo{background:var(--blue);color:white;border-radius:12px;width:42px;height:42px;display:grid;place-items:center;font-size:22px}.brand h1{font-size:20px;margin:0}.brand p{margin:3px 0 0;color:var(--muted);font-size:12px}
+button,.btn{border:0;border-radius:9px;padding:10px 14px;background:var(--blue);color:white;font-weight:650;cursor:pointer;font-size:13px}button.secondary{background:white;color:var(--ink);border:1px solid var(--line)}button:hover{filter:brightness(.96)}
+.layout{display:grid;grid-template-columns:225px 1fr;min-height:calc(100vh - 75px)}aside{background:#fff;border-right:1px solid var(--line);padding:20px 13px}.nav{display:flex;flex-direction:column;gap:7px}.nav button{background:transparent;color:#4c586b;text-align:left;font-weight:600}.nav button.active,.nav button:hover{background:var(--blue2);color:var(--blue)}.side-note{margin:28px 5px 0;padding:12px;border-radius:10px;background:#f4f6f9;color:var(--muted);font-size:12px;line-height:1.5}
+main{padding:26px;max-width:1500px;width:100%;margin:auto}.hero{background:linear-gradient(115deg,#eaf0ff,#fff);border:1px solid var(--line);border-radius:16px;padding:22px 24px;margin-bottom:22px}.hero h2{font-size:25px;margin:0 0 6px;letter-spacing:-.5px}.hero p{color:var(--muted);margin:0;font-size:14px}.notice{background:#fff8e7;border:1px solid #f1d28a;color:#775400;padding:11px 14px;border-radius:10px;font-size:12px;margin:14px 0 20px}
+.kpis{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:14px;margin-bottom:20px}.card,.kpi{background:white;border:1px solid var(--line);border-radius:14px;padding:17px}.kpi .label{font-size:12px;color:var(--muted)}.kpi .value{font-size:26px;font-weight:750;margin:8px 0 4px}.kpi .sub{font-size:11px;color:var(--muted)}
+.grid2{display:grid;grid-template-columns:1.15fr 1fr;gap:16px;margin-bottom:18px}.card h3{font-size:15px;margin:0 0 14px}.muted{color:var(--muted);font-size:12px}.barrow{display:grid;grid-template-columns:110px 1fr 70px;gap:10px;align-items:center;margin:15px 0;font-size:12px}.track{height:11px;border-radius:20px;background:#edf0f5;overflow:hidden}.bar{height:100%;background:var(--blue);border-radius:20px}.metricline{display:flex;justify-content:space-between;border-bottom:1px solid #edf0f5;padding:12px 0;font-size:13px}.metricline:last-child{border:0}
+table{width:100%;border-collapse:collapse;font-size:12px}th,td{text-align:left;padding:12px 10px;border-bottom:1px solid #edf0f5;vertical-align:top}th{color:var(--muted);font-weight:650;background:#fafbfd}.table-wrap{overflow:auto}.pill{display:inline-block;padding:4px 8px;border-radius:20px;font-size:11px;font-weight:700}.high{background:#fff0ee;color:var(--red)}.medium{background:#fff5d8;color:var(--amber)}.low{background:#e8f6ee;color:var(--green)}
+.section{display:none}.section.active{display:block}.fieldgrid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:12px}.field label{display:block;font-size:12px;color:var(--muted);margin-bottom:6px}.field input{width:100%;padding:9px;border:1px solid var(--line);border-radius:8px;font:inherit}.roomedit{padding:16px 0;border-bottom:1px solid #edf0f5}.roomedit h4{margin:0 0 12px}.actions{display:flex;gap:8px;flex-wrap:wrap;margin-top:14px}.recommendation{border:1px solid var(--line);border-radius:12px;padding:16px;margin:10px 0;background:white}.recommendation h4{margin:9px 0;font-size:14px}.recommendation p{font-size:13px;color:#4d5a6d;line-height:1.5}.footer{margin-top:26px;border-top:1px solid var(--line);padding-top:15px;color:var(--muted);font-size:11px;line-height:1.5}
+#toast{position:fixed;bottom:20px;right:20px;background:#172033;color:white;padding:12px 16px;border-radius:10px;display:none;z-index:10}
+@media(max-width:950px){.layout{grid-template-columns:1fr}aside{border-right:0;border-bottom:1px solid var(--line);padding:10px}.nav{flex-direction:row;overflow:auto}.nav button{white-space:nowrap}main{padding:15px}.kpis{grid-template-columns:repeat(2,1fr)}.grid2{grid-template-columns:1fr}.fieldgrid{grid-template-columns:repeat(2,1fr)}}
+@media(max-width:520px){.kpis{grid-template-columns:1fr 1fr;gap:8px}.kpi{padding:12px}.kpi .value{font-size:20px}.hero h2{font-size:21px}.fieldgrid{grid-template-columns:1fr 1fr}header{padding:12px}.brand h1{font-size:17px}}
+</style>
+</head>
+<body>
+<header>
+  <div class="brand"><div class="logo">⚡</div><div><h1>ClassroomIQ</h1><p>SMART CLASSROOM ENERGY INTELLIGENCE</p></div></div>
+  <button class="secondary" id="resetBtn">Reset demo data</button>
+</header>
+<div class="layout">
+<aside>
+  <nav class="nav">
+    <button class="active" data-view="overview">▦ &nbsp; Campus overview</button>
+    <button data-view="rooms">▤ &nbsp; Room details</button>
+    <button data-view="optimizer">✦ &nbsp; Optimization plan</button>
+    <button data-view="history">◷ &nbsp; History & reports</button>
+    <button data-view="settings">⚙ &nbsp; Edit room readings</button>
+  </nav>
+  <div class="side-note"><b>Prototype mode</b><br>Values are simulated estimates. No live sensors or electrical controls are connected.</div>
+</aside>
+<main>
+  <div class="hero"><h2 id="pageTitle">Campus overview</h2><p>Understand classroom energy use, identify possible waste, and make safer, evidence-based decisions.</p></div>
+  <div class="notice">⚠ Demo data is active. These values are not measured results from your college. Recommendations require human verification.</div>
+
+  <section id="overview" class="section active">
+    <div class="kpis" id="kpis"></div>
+    <div class="grid2">
+      <div class="card"><h3>Estimated daily energy by room</h3><div id="energyBars"></div></div>
+      <div class="card"><h3>Optimization opportunity</h3><div id="opportunity"></div></div>
+    </div>
+    <div class="card"><h3>Room status</h3><div class="table-wrap"><table><thead><tr><th>Room</th><th>Occupancy</th><th>Use</th><th>Energy/day</th><th>Cost/day</th><th>Priority</th></tr></thead><tbody id="roomTable"></tbody></table></div></div>
+  </section>
+
+  <section id="rooms" class="section">
+    <div class="card"><h3>Room details</h3><div class="field" style="max-width:360px"><label>Choose classroom</label><select id="roomSelect" style="width:100%;padding:10px;border:1px solid var(--line);border-radius:8px"></select></div><div id="roomDetail" style="margin-top:20px"></div></div>
+  </section>
+
+  <section id="optimizer" class="section">
+    <div class="card"><h3>Explainable optimization plan</h3><p class="muted">Rule-based suggestions only. A teacher or facilities manager must verify room status before action.</p><div id="recommendations"></div></div>
+  </section>
+
+  <section id="history" class="section">
+    <div class="card"><h3>History & reports</h3><p class="muted">Save a snapshot of current modelled readings in this browser. Browser storage is local to this device.</p><div class="actions"><button id="saveSnapshot">Save current snapshot</button><button class="secondary" id="downloadHistory">Download history CSV</button><button class="secondary" id="downloadCurrent">Download current report CSV</button></div><div id="historyContent" style="margin-top:18px"></div></div>
+  </section>
+
+  <section id="settings" class="section">
+    <div class="card"><h3>Edit room readings and equipment assumptions</h3><p class="muted">Use actual nameplate ratings or measured data when available. Do not present these sample values as measured results.</p><div id="editRooms"></div><div class="actions"><button id="applyChanges">Apply changes</button><button class="secondary" id="restoreDefaults">Restore defaults</button></div></div>
+  </section>
+
+  <div class="footer"><b>About this prototype:</b> ClassroomIQ estimates energy from equipment assumptions and operating hours, then applies transparent rules to flag potential waste. It is not a live building-control system. Future camera occupancy should use anonymous counts, approved local processing, and no stored footage. Do not automatically shut off cooling or ventilation based only on estimated occupancy.</div>
+</main>
+</div>
+<div id="toast"></div>
+<script>
+const defaults = [
+ {name:"Room A-101",capacity:60,occupancy:0,lights:8,fans:4,ac:2,acKw:1.5,lightKw:.04,fanKw:.07,hours:7,rate:9.5,temp:27,co2:650,schedule:"08:00–16:00"},
+ {name:"Room A-102",capacity:45,occupancy:32,lights:6,fans:3,ac:1,acKw:1.5,lightKw:.04,fanKw:.07,hours:6,rate:9.5,temp:25,co2:780,schedule:"09:00–15:00"},
+ {name:"Lab B-201",capacity:40,occupancy:28,lights:10,fans:5,ac:2,acKw:1.8,lightKw:.04,fanKw:.07,hours:8,rate:9.5,temp:24,co2:920,schedule:"09:00–17:00"},
+ {name:"Seminar C-301",capacity:80,occupancy:12,lights:12,fans:6,ac:3,acKw:1.8,lightKw:.04,fanKw:.07,hours:4,rate:9.5,temp:24,co2:710,schedule:"11:00–15:00"}
+];
+let rooms = JSON.parse(JSON.stringify(defaults));
+let snapshots = JSON.parse(localStorage.getItem("classroomiq_history")||"[]");
+const fmt = n => "₹"+Number(n).toLocaleString("en-IN",{minimumFractionDigits:2,maximumFractionDigits:2});
+function calc(r){
+ const lightsKw=r.lights*r.lightKw, fansKw=r.fans*r.fanKw, acKw=r.ac*r.acKw;
+ const dailyKwh=(lightsKw+fansKw)*r.hours+acKw*r.hours*.7;
+ const utilization=100*r.occupancy/Math.max(1,r.capacity);
+ let priority="Low", recommendation="No immediate action", reason="No clear rule-based opportunity was detected from current inputs.", saving=0;
+ if(r.occupancy===0 && r.hours>0){
+  priority="High";recommendation="Verify the room is empty; then switch off nonessential lights and AC.";
+  reason="Entered occupancy is zero while equipment is scheduled to run. Check timetable, cleaning, exams and ventilation needs first.";
+  saving=(lightsKw+acKw*.7)*r.hours*.75;
+ } else if(utilization<30 && r.occupancy>0){
+  priority="Medium";recommendation="Review whether a smaller room is available for the next session.";
+  reason="Low occupancy may make room consolidation worth considering if timetable, accessibility and teaching needs allow.";
+  saving=dailyKwh*.1;
+ } else if(r.temp<=24 && r.ac>0){
+  priority="Low";recommendation="Review the cooling setpoint with the facilities team.";
+  reason="Entered room temperature is already relatively cool. Follow institutional comfort policy; do not change settings automatically.";
+  saving=acKw*r.hours*.05;
+ }
+ saving=Math.max(0,Math.min(saving,dailyKwh*.8));
+ return {...r,lightsKw,fansKw,acKw,connectedKw:lightsKw+fansKw+acKw,dailyKwh,dailyCost:dailyKwh*r.rate,utilization,priority,recommendation,reason,saving,savingCost:saving*r.rate};
+}
+function all(){return rooms.map(calc)}
+function toast(msg){const t=document.getElementById("toast");t.textContent=msg;t.style.display="block";setTimeout(()=>t.style.display="none",2400)}
+function render(){
+ const data=all(), total=data.reduce((s,r)=>s+r.dailyKwh,0), cost=data.reduce((s,r)=>s+r.dailyCost,0), save=data.reduce((s,r)=>s+r.savingCost,0), saveKwh=data.reduce((s,r)=>s+r.saving,0), occ=data.reduce((s,r)=>s+r.occupancy,0), cap=data.reduce((s,r)=>s+r.capacity,0);
+ document.getElementById("kpis").innerHTML=[
+  ["Estimated daily energy",total.toFixed(1)+" kWh","Model-based estimate"],
+  ["Estimated daily cost",fmt(cost),"Using entered tariff assumptions"],
+  ["Potential daily savings",fmt(save),saveKwh.toFixed(1)+" kWh/day modelled opportunity"],
+  ["Occupancy utilization",Math.round(100*occ/Math.max(1,cap))+"%",occ+" people / "+cap+" seats"]
+ ].map(x=>`<div class="kpi"><div class="label">${x[0]}</div><div class="value">${x[1]}</div><div class="sub">${x[2]}</div></div>`).join("");
+ const max=Math.max(1,...data.map(r=>r.dailyKwh));
+ document.getElementById("energyBars").innerHTML=data.map(r=>`<div class="barrow"><span>${r.name}</span><div class="track"><div class="bar" style="width:${100*r.dailyKwh/max}%"></div></div><b>${r.dailyKwh.toFixed(1)} kWh</b></div>`).join("");
+ const flagged=data.filter(r=>r.recommendation!=="No immediate action").length, high=data.filter(r=>r.priority==="High").length;
+ document.getElementById("opportunity").innerHTML=`<div class="metricline"><span>Rooms flagged for review</span><b>${flagged}</b></div><div class="metricline"><span>High-priority checks</span><b>${high}</b></div><div class="metricline"><span>Modelled opportunity</span><b>${saveKwh.toFixed(1)} kWh/day</b></div><p class="muted" style="line-height:1.6;margin-top:15px">Savings are theoretical estimates, not guaranteed results. Verify room use, equipment ratings and comfort requirements before taking action.</p>`;
+ document.getElementById("roomTable").innerHTML=data.map(r=>`<tr><td><b>${r.name}</b></td><td>${r.occupancy}/${r.capacity}</td><td>${r.utilization.toFixed(0)}%</td><td>${r.dailyKwh.toFixed(1)} kWh</td><td>${fmt(r.dailyCost)}</td><td><span class="pill ${r.priority.toLowerCase()}">${r.priority}</span></td></tr>`).join("");
+ renderRoomSelect();renderRoomDetail();renderRecommendations();renderHistory();renderEdit();
+}
+function renderRoomSelect(){const s=document.getElementById("roomSelect"), old=s.value;s.innerHTML=rooms.map(r=>`<option>${r.name}</option>`).join("");if(rooms.some(r=>r.name===old))s.value=old}
+function renderRoomDetail(){const r=all().find(x=>x.name===document.getElementById("roomSelect").value)||all()[0];if(!r)return;
+ const parts=[["Lights",r.lightsKw],["Fans",r.fansKw],["Air conditioners",r.acKw]], max=Math.max(1,...parts.map(p=>p[1]));
+ document.getElementById("roomDetail").innerHTML=`<div class="kpis" style="grid-template-columns:repeat(3,1fr)"><div class="kpi"><div class="label">Connected load</div><div class="value">${r.connectedKw.toFixed(2)} kW</div></div><div class="kpi"><div class="label">Estimated daily energy</div><div class="value">${r.dailyKwh.toFixed(1)} kWh</div></div><div class="kpi"><div class="label">Estimated daily cost</div><div class="value">${fmt(r.dailyCost)}</div></div></div><div class="card" style="margin-top:15px"><h3>Equipment load breakdown</h3>${parts.map(p=>`<div class="barrow"><span>${p[0]}</span><div class="track"><div class="bar" style="width:${100*p[1]/max}%"></div></div><b>${p[1].toFixed(2)} kW</b></div>`).join("")}</div><div class="card" style="margin-top:15px"><h3>Room conditions</h3><div class="metricline"><span>Occupancy</span><b>${r.occupancy} / ${r.capacity}</b></div><div class="metricline"><span>Entered temperature</span><b>${r.temp}°C</b></div><div class="metricline"><span>Entered CO₂ (informational only)</span><b>${r.co2} ppm</b></div><div class="metricline"><span>Timetable</span><b>${r.schedule}</b></div><p class="muted">Do not reduce ventilation or shut down equipment solely from an occupancy estimate or uncalibrated CO₂ value.</p></div>`;
+}
+function renderRecommendations(){document.getElementById("recommendations").innerHTML=all().map(r=>`<div class="recommendation"><span class="pill ${r.priority.toLowerCase()}">${r.priority} priority</span><h4>${r.name} — ${r.recommendation}</h4><p>${r.reason}</p>${r.saving>0?`<div class="muted">Modelled opportunity: up to ${r.saving.toFixed(2)} kWh/day (${fmt(r.savingCost)}/day) under stated assumptions.</div>`:""}</div>`).join("")}
+function renderEdit(){document.getElementById("editRooms").innerHTML=rooms.map((r,i)=>`<div class="roomedit"><h4>${r.name}</h4><div class="fieldgrid">${field(i,"occupancy","People",0,r.capacity,1)}${field(i,"capacity","Capacity",1,500,1)}${field(i,"hours","Hours per day",0,24,.5)}${field(i,"rate","Tariff ₹/kWh",0,100,.5)}${field(i,"lights","Light count",0,100,1)}${field(i,"fans","Fan count",0,100,1)}${field(i,"ac","AC count",0,50,1)}${field(i,"temp","Temperature °C",10,45,1)}${field(i,"co2","CO₂ ppm",300,5000,10)}${field(i,"acKw","kW per AC",0,10,.1)}${field(i,"lightKw","kW per light",0,2,.01)}${field(i,"fanKw","kW per fan",0,2,.01)}</div></div>`).join("")}
+function field(i,key,label,min,max,step){return `<div class="field"><label>${label}</label><input data-i="${i}" data-key="${key}" type="number" min="${min}" max="${max}" step="${step}" value="${rooms[i][key]}"></div>`}
+function renderHistory(){const el=document.getElementById("historyContent");if(!snapshots.length){el.innerHTML='<p class="muted">No snapshots saved yet. Click “Save current snapshot” to begin a local history.</p>';return}
+ el.innerHTML=`<div class="table-wrap"><table><thead><tr><th>Saved at</th><th>Rooms</th><th>Energy/day</th><th>Cost/day</th></tr></thead><tbody>${snapshots.slice().reverse().map(s=>`<tr><td>${s.timestamp}</td><td>${s.rooms}</td><td>${s.kwh.toFixed(1)} kWh</td><td>${fmt(s.cost)}</td></tr>`).join("")}</tbody></table></div>`;
+}
+function csvDownload(filename, rows){const cols=Object.keys(rows[0]||{});const esc=v=>'"'+String(v??"").replace(/"/g,'""')+'"';const csv=[cols.map(esc).join(","),...rows.map(r=>cols.map(c=>esc(r[c])).join(","))].join("\r\n");const a=document.createElement("a");a.href=URL.createObjectURL(new Blob([csv],{type:"text/csv;charset=utf-8;"}));a.download=filename;a.click();URL.revokeObjectURL(a.href)}
+document.querySelectorAll(".nav button").forEach(b=>b.addEventListener("click",()=>{document.querySelectorAll(".nav button").forEach(x=>x.classList.remove("active"));document.querySelectorAll(".section").forEach(x=>x.classList.remove("active"));b.classList.add("active");document.getElementById(b.dataset.view).classList.add("active");document.getElementById("pageTitle").textContent=b.textContent.replace(/^[▦▤✦◷⚙]\s*/,"").trim();if(b.dataset.view==="settings")renderEdit()}));
+document.getElementById("roomSelect").addEventListener("change",renderRoomDetail);
+document.getElementById("applyChanges").addEventListener("click",()=>{document.querySelectorAll("#editRooms input").forEach(inp=>{const i=+inp.dataset.i,key=inp.dataset.key;let val=Number(inp.value);if(!Number.isFinite(val))return;if(key==="occupancy")val=Math.min(rooms[i].capacity,Math.max(0,val));if(key==="capacity"){val=Math.max(1,val);rooms[i].capacity=val;rooms[i].occupancy=Math.min(rooms[i].occupancy,val)}rooms[i][key]=val;});render();toast("Room assumptions updated.")});
+document.getElementById("restoreDefaults").addEventListener("click",()=>{rooms=JSON.parse(JSON.stringify(defaults));render();toast("Default demo data restored.")});
+document.getElementById("resetBtn").addEventListener("click",()=>{rooms=JSON.parse(JSON.stringify(defaults));render();toast("Demo readings reset.")});
+document.getElementById("saveSnapshot").addEventListener("click",()=>{const d=all();snapshots.push({timestamp:new Date().toLocaleString(),rooms:d.length,kwh:d.reduce((s,r)=>s+r.dailyKwh,0),cost:d.reduce((s,r)=>s+r.dailyCost,0)});localStorage.setItem("classroomiq_history",JSON.stringify(snapshots));renderHistory();toast("Snapshot saved in this browser.")});
+document.getElementById("downloadCurrent").addEventListener("click",()=>csvDownload("classroomiq_current_report.csv",all().map(r=>({room:r.name,occupancy:r.occupancy,capacity:r.capacity,utilization_pct:r.utilization.toFixed(1),estimated_kwh_day:r.dailyKwh.toFixed(2),estimated_cost_day:r.dailyCost.toFixed(2),priority:r.priority,recommendation:r.recommendation,potential_saving_kwh_day:r.saving.toFixed(2)}))));
+document.getElementById("downloadHistory").addEventListener("click",()=>{if(!snapshots.length){toast("Save a snapshot first.");return}csvDownload("classroomiq_history.csv",snapshots)});
+render();
+</script>
+</body>
+</html>
